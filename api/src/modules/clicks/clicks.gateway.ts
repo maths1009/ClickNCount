@@ -23,9 +23,8 @@ export class ClicksGateway
     console.log('WebSocket Server initialized');
   }
 
-  async handleConnection(client: Socket) {
+  handleConnection(client: Socket) {
     console.log('Client connected:', client.id);
-    await client.join('clicksRoom');
   }
 
   handleDisconnect(client: Socket) {
