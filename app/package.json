@@ -2,6 +2,7 @@
   "name": "my-app",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.5.2",
   "scripts": {
     "start": "vite --port 3000",
     "build": "vite build && tsc",
