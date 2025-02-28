@@ -4,7 +4,7 @@
   "type": "module",
   "packageManager": "pnpm@10.5.2",
   "scripts": {
-    "start": "vite --port 3000",
+    "start": "vite",
     "build": "vite build && tsc",
     "serve": "vite preview",
     "test": "vitest run"
