@@ -8,7 +8,9 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { Injectable } from '@nestjs/common';
-import { ClicksService } from './clicks.service';
+import { ClicksService } from './click.service';
+import { AsyncApiSub } from 'nestjs-asyncapi';
+import { ClickPayload } from './dtos';
 
 @Injectable()
 @WebSocketGateway({ cors: true })
@@ -31,13 +33,20 @@ export class ClicksGateway
     console.log('Client disconnected:', client.id);
   }
 
+  @AsyncApiSub({
+    channel: 'click',
+    message: {
+      name: 'click',
+      payload: ClickPayload,
+    },
+  })
   @SubscribeMessage('click')
   async handleClick(
-    client: Socket,
-    payload: { isAuto: boolean },
-  ): Promise<void> {
+    _: Socket,
+    payload: ClickPayload,
+  ): Promise<{ status: string }> {
     console.log('Click received:', payload);
     await this.clicksService.createClick(payload.isAuto);
-    client.emit('clickResponse', { status: 'ok' });
+    return { status: 'ok' };
   }
 }

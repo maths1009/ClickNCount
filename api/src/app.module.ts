@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClicksModule } from './modules/clicks/clicks.module';
+import { ClicksModule } from './modules/click/click.module';
 
 @Module({
   imports: [

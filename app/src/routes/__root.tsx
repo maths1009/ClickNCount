@@ -8,7 +8,17 @@ const socket = io("http://localhost:3001");
 const RootComponent = () => {
   return (
     <div>
-      <Button onClick={() => socket.emit("click", { isAuto: false })}>
+      <Button
+        onClick={() => {
+          socket.emit(
+            "click",
+            { isAuto: false },
+            (data: { status: string }) => {
+              console.log(data);
+            }
+          );
+        }}
+      >
         Click me
       </Button>
     </div>

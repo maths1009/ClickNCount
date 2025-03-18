@@ -1,18 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('Clicker API')
-    .setDescription('API documentation for Clicker project')
+  const asyncApiOptions = new AsyncApiDocumentBuilder()
+    .setTitle('ClicknCount WebSocket API')
+    .setDescription('API documentation for ClicknCount WebSocket events')
     .setVersion('1.0')
+    .setDefaultContentType('application/json')
+    .addServer('clicknCount', {
+      url: 'ws://localhost:3001',
+      protocol: 'socket.io',
+    })
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  const asyncapiDocument = AsyncApiModule.createDocument(app, asyncApiOptions);
+  await AsyncApiModule.setup('/asyncapi', app, asyncapiDocument);
 
   await app.listen(3001);
 }

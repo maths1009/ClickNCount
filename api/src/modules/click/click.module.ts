@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClicksGateway } from './clicks.gateway';
+import { ClicksGateway } from './click.gateway';
 import { Click } from './entities';
-import { ClicksService } from './clicks.service';
+import { ClicksService } from './click.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Click])],
