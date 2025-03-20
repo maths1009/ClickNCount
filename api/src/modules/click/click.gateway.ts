@@ -9,8 +9,9 @@ import {
 import { Server, Socket } from 'socket.io';
 import { Injectable } from '@nestjs/common';
 import { ClicksService } from './click.service';
-import { AsyncApiSub } from 'nestjs-asyncapi';
-import { ClickPayload, ClickResponse } from './click.dto';
+import { AsyncApiPub, AsyncApiSub } from 'nestjs-asyncapi';
+import { ClickResponse } from './dto/gateway-click.dto';
+import { CreateClickDto } from './dto/create-click.dto';
 
 @Injectable()
 @WebSocketGateway({ cors: true })
@@ -37,13 +38,28 @@ export class ClicksGateway
     channel: 'click',
     message: {
       name: 'click',
-      payload: ClickPayload,
+      payload: CreateClickDto,
+    },
+  })
+  @AsyncApiPub({
+    channel: 'click',
+    message: {
+      name: 'click',
+      payload: ClickResponse,
     },
   })
   @SubscribeMessage('click')
-  async handleClick(_: Socket, payload: ClickPayload): Promise<ClickResponse> {
-    console.log('Click received:', payload);
-    await this.clicksService.createClick(payload.isAuto);
-    return { status: 'ok' };
+  async create(
+    client: Socket,
+    payload: CreateClickDto,
+  ): Promise<ClickResponse> {
+    try {
+      await this.clicksService.create(payload);
+      client.to(client.id).emit('clickResponse', { status: 'ok' });
+      return { status: 'ok' };
+    } catch {
+      client.to(client.id).emit('clickResponse', { status: 'error' });
+      return { status: 'error' };
+    }
   }
 }
