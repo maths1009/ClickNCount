@@ -10,11 +10,11 @@ import { Click } from './entities/click.entity';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ErrorResponse } from 'src/common/interfaces/errorResponse.interface';
 
-@Controller()
+@Controller('clicks')
 export class ClickController {
   constructor(private readonly appService: ClicksService) {}
 
-  @Get('clicks')
+  @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get all clicks' })
   @ApiResponse({

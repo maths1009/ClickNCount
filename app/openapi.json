@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/clicks": {
+      "get": {
+        "operationId": "ClickController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The list of all clicks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Click" }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "summary": "Get all clicks",
+        "tags": ["Click"]
+      }
+    }
+  },
+  "info": {
+    "title": "ClicknCount API",
+    "description": "API documentation for ClicknCount",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "Click": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "isAuto": { "type": "boolean" },
+          "createdAt": { "format": "date-time", "type": "string" }
+        },
+        "required": ["id", "isAuto", "createdAt"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "number", "description": "HTTP status code" },
+          "message": { "type": "string", "description": "Error message" }
+        },
+        "required": ["statusCode", "message"]
+      }
+    }
+  }
+}
