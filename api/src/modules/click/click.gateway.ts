@@ -10,7 +10,7 @@ import { Server, Socket } from 'socket.io';
 import { Injectable } from '@nestjs/common';
 import { ClicksService } from './click.service';
 import { AsyncApiSub } from 'nestjs-asyncapi';
-import { ClickPayload, ClickResponse } from './dtos';
+import { ClickPayload, ClickResponse } from './click.dto';
 
 @Injectable()
 @WebSocketGateway({ cors: true })

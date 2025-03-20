@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ClicksService } from './click.service';
-import { Click } from './entities';
+import { Click } from './click.entity';
 
 @Controller()
 export class ClickController {
