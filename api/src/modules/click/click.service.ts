@@ -14,4 +14,8 @@ export class ClicksService {
     const click = this.clicksRepository.create({ isAuto });
     await this.clicksRepository.save(click);
   }
+
+  async getClicks(): Promise<Click[]> {
+    return this.clicksRepository.find();
+  }
 }
