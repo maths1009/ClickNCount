@@ -4,7 +4,7 @@ import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   /* WEBSOCKET DOC */
   const asyncApiOptions = new AsyncApiDocumentBuilder()
