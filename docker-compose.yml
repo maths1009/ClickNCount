@@ -40,7 +40,7 @@ services:
       - /usr/src/app/node_modules
     environment:
       - NODE_ENV=development
-      - DB_HOST=host.docker.internal
+      - DB_HOST=mariadb
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
